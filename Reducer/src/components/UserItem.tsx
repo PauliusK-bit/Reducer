@@ -1,11 +1,11 @@
 import { useUsers } from "../pages/UsersPage/UsersPageContextProvider";
+import { User } from "../pages/UsersPage/usersReducer";
 
 interface UserItemProps {
-  user: string;
-  id: string;
+  user: User;
 }
 
-const UsersItem: React.FC<UserItemProps> = ({ user, id }) => {
+const UsersItem: React.FC<UserItemProps> = ({ user }) => {
   const { deleteUser } = useUsers();
 
   return (
@@ -18,9 +18,9 @@ const UsersItem: React.FC<UserItemProps> = ({ user, id }) => {
         borderBottom: "1px solid #ddd",
       }}
     >
-      <span>{user}</span>
+      <p>{user.name}</p>
       <button
-        onClick={() => deleteUser(id)}
+        onClick={() => deleteUser(user.id)}
         style={{
           background: "red",
           color: "white",

@@ -14,6 +14,7 @@ interface UsersContextType {
   loading: boolean;
   error: string;
   deleteUser: (id: string) => Promise<void>;
+  addUser: (user: User) => void;
 }
 
 export const UsersContext = createContext<UsersContextType | undefined>(
@@ -53,11 +54,22 @@ export const UsersContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  const addUser = async (newUser: User) => {
+    try {
+      const { data } = await axios.post("http://localhost:3000/users", newUser);
+      dispatch({ type: ActionTypes.ADD_USER, payload: data });
+      toast.success("User was created");
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
   const ctxValue: UsersContextType = {
     users,
     loading,
     error,
     deleteUser,
+    addUser,
   };
 
   return (

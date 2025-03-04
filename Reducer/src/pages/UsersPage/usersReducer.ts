@@ -16,13 +16,15 @@ export enum ActionTypes {
   SUCCESS = "success",
   FAIL = "fail",
   DELETE = "delete",
+  ADD_USER = "addUser",
 }
 
 export type Action =
   | { type: ActionTypes.FETCH }
   | { type: ActionTypes.SUCCESS; payload: User[] }
   | { type: ActionTypes.FAIL; payload: string }
-  | { type: ActionTypes.DELETE; payload: string };
+  | { type: ActionTypes.DELETE; payload: string }
+  | { type: ActionTypes.ADD_USER; payload: User };
 
 export const initialState: State = {
   users: [],
@@ -57,6 +59,12 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         users: state.users.filter((user) => user.id !== action.payload),
+      };
+
+    case ActionTypes.ADD_USER:
+      return {
+        ...state,
+        users: [...state.users, action.payload],
       };
 
     default:

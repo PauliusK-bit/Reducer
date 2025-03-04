@@ -4,15 +4,15 @@ import UsersItem from "./UserItem";
 
 const UsersList = () => {
   const { users, error, loading } = useUsers();
+  console.log(users);
 
   return (
     <div>
-      <h1>Users</h1>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <ul>
         {users.map((user: User) => (
-          <UsersItem key={user.id} user={user.name} id={user.id} />
+          <UsersItem key={user.id} user={user} />
         ))}
       </ul>
     </div>
